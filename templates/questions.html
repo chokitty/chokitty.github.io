@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Ask Questions</h1>
+</header>
+<main>
+    <section>
+        <h2>Contact IT</h2>
+        <button onclick="location.href='/contact_it'">Contact IT</button>
+    </section>
+    <section>
+        <h2>Ask a Question</h2>
+        <form action="/questions" method="post">
+            <label for="question">Your Question:</label>
+            <textarea autofocus placeholder="Questions" id="question" name="question" rows="4" cols="50" required></textarea>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        {% if success_message %}
+        <p>{{ success_message }}</p>
+        {% endif %}
+    </section>
+    <button onclick="location.href='/home'">HOME</button></main>
+</main>
+{% endblock %}

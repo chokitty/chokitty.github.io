@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exported Information</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    {% if students %}
+    <h1>Danh sách tổng sinh viên hiện có trên cơ sở dữ liệu</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID sinh viên</th>
+                <th>Name</th>
+                <th>Birth</th>
+                <th>Niên khóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.hovaten }}</td>
+                <td>{{ student.birth }}</td>
+                <td>{{ student.nienkhoa }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if activities %}
+    <h1>Danh sách tổng hoạt động hiện có trên cơ sở dữ liệu</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID hoạt động</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Subject</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for activity in activities %}
+            <tr>
+                <td>{{ activity.id }}</td>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.level }}</td>
+                <td>{{ activity.subject }}</td>
+                <td>{{ activity.time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if participants %}
+    <h1>Danh sách tổng tham gia hiện có trên cơ sở dữ liệu</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID sinh viên</th>
+                <th>Code hoạt động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for participant in participants %}
+            <tr>
+                <td>{{ participant["student_id"] }}</td>
+                <td>{{ participant["code_hd"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if kt_xp %}
+    <h1>Danh sách tổng khen thưởng/xử phạt hiện có trên cơ sở dữ liệu</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID sinh viên</th>
+                <th>Tên khen thưởng/xử phạt</th>
+                <th>Điểm khen thưởng/xử phạt</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in kt_xp %}
+            <tr>
+                <td>{{ i["student_id"] }}</td>
+                <td>{{ i["ten_kt_xp"] }}</td>
+                <td>{{ i["diem_kt_xp"] }}</td>
+                <td>{{ i["time"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if submission %}
+    <h1>Lịch sử nhập dữ liệu hiện có trên cơ sở dữ liệu</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID sinh viên nhập</th>
+                <th>Thời gian nhập</th>
+                <th>Địa chỉ nhập</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in submission %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i["user_id"] }}</td>
+                <td>{{ i["submission_time"] }}</td>
+                <td>{{ i["submission_site"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>

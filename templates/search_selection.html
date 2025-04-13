@@ -1,0 +1,186 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Search selection</h1>
+</header>
+<section>
+    <h2>Selection Exported File</h2>
+    <form action="/search_selection" method="POST">
+        <div id="fields">
+            <div>
+                <label for="field">Cần tìm về:</label>
+                <select id="field" name="field" required> 
+                    <option value="" disabled selected>Select</option>
+                    <option value="hovaten">Họ và tên sinh viên</option>
+                    <option value="id">ID sinh viên</option>
+                    <option value="activity_id">Activity ID</option>
+                    <option value="nienkhoa">Niên khóa</option>
+                </select>
+                <input type="text" id="field_input" name="field_input" required>
+            </div>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    {% if no_found %}
+    <p>{{ no_found }}</p>
+    {% endif %}
+    {% if student %}
+    <div>
+        <h2>Thông tin sinh viên tìm kiếm</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Birth</th>
+                    <th>Niên khóa</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ student[0]["id"] }}</td>
+                    <td>{{ student[0]["hovaten"] }}</td>
+                    <td>{{ student[0]["birth"] }}</td>
+                    <td>{{ student[0]["nienkhoa"] }}</td>
+                    <td>{{ student[0]["email"] }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {% if activities %}
+        <div>
+            <h2>Các hoạt động sinh viên đã tham gia</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Level</th>
+                        <th>Subject</th>
+                        <th>Hình thức tham gia</th>
+                        <th>DRL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                    <tr>
+                        <td>{{ activity["activity_id"] }}</td>
+                        <td>{{ activity.name }}</td>
+                        <td>{{ activity.time }}</td>
+                        <td>{{ activity.level }}</td>
+                        <td>{{ activity.subject }}</td>
+                        <td>{{ activity.hinhthucthamgia }}</td>
+                        <td>{{ activity.drl }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if students %}
+    <div>
+        <h2>Thông tin sinh viên tìm kiếm</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Birth</th>
+                    <th>Niên khóa</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student["id"] }}</td>
+                    <td>{{ student["hovaten"] }}</td>
+                    <td>{{ student["birth"] }}</td>
+                    <td>{{ student["nienkhoa"] }}</td>
+                    <td>{{ student["email"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {% if activity %}
+    <div>
+        <h2>Thông tin hoạt động tìm kiếm</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Subject</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ activity[0]["id"] }}</td>
+                    <td>{{ activity[0]["name"] }}</td>
+                    <td>{{ activity[0]["level"] }}</td>
+                    <td>{{ activity[0]["subject"] }}</td>
+                    <td>{{ activity[0]["time"] }}</td>
+                </tr>
+            </tbody>
+        </table> 
+        <h2>Các vai trò trong hoạt động</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hình thức tham gia</th>
+                    <th>ĐRL</th>
+                    <th>Code của hình thức tương ứng</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for role in roles %}
+                <tr>
+                    <td>{{ role.hinhthucthamgia }}</td>
+                    <td>{{ role.drl }}</td>
+                    <td>{{ role["code_hd"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+        <h2>Danh sách sinh viên tham gia hoạt động</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ và tên</th>
+                    <th>Birth</th>
+                    <th>Niên khóa</th>
+                    <th>Hình thức tham gia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in activity_students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.hovaten }}</td>
+                    <td>{{ student.birth }}</td>
+                    <td>{{ student.nienkhoa }}</td>
+                    <td>{{ student.hinhthucthamgia }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+    {% endif %} 
+
+    <button onclick="location.href='/home'">HOME</button></main>
+</section>
+</main>
+{% endblock %}

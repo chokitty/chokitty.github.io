@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Bạn muốn xem bắt đầu từ ngày nào đến ngày nào</h1>
+</header>
+<main>
+    <form action="/temp_drl" method="POST">
+        <label for="from_day_tmp">From day:</label>
+        <input type="date" id="from_day_tmp" name="from_day_tmp" required>
+        <label for="to_day_tmp">To day:</label>
+        <input type="date" id="to_day_tmp" name="to_day_tmp" required>
+        <button type="submit">Xem</button>
+    </form>
+</main>
+{% endblock %}

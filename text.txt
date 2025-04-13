@@ -1,0 +1,30 @@
+    # Specify the path to the wkhtmltopdf executable
+path_to_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"  # Update this path based on your installation
+config = pdfkit.configuration(wkhtmltopdf=path_to_wkhtmltopdf)
+    rendered = render_template('export_template.html', students=students, from_day=from_day, to_day=to_day, nienkhoa=school_years)
+    # Save the rendered HTML to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.html') as temp_file:
+        temp_file.write(rendered.encode('utf-8'))
+        temp_file_path = temp_file.name
+
+    # Generate PDF from the temporary HTML file
+    pdf_path = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf').name
+    pdfkit.from_file(temp_file_path, pdf_path, configuration=config)
+    
+    # Remove the temporary file
+    os.remove(temp_file_path)
+
+    @after_this_request
+    def remove_file(response):
+        try:
+            os.remove(pdf_path)
+        except Exception as error:
+            print(f"Error removing file: {error}")
+        return response
+    
+    return send_file(
+        pdf_path,
+        as_attachment=True,
+        download_name=f'Danh sách điểm rèn luyện của sinh viên khóa {school_years} từ ngày {from_day} đến ngày {to_day} .pdf',
+        mimetype='application/pdf'
+    )

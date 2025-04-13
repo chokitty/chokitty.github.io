@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Danh sách khen thưởng, xử phạt từ {{ from_day_tmp }} đến {{ to_day_tmp }}</h1>
+</header>
+<main>
+    {% if kt_xp %}
+    <section>
+        <h2>Danh sách khen thưởng, xử phạt</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Khen thưởng/ Xử phạt</th>
+                    <th>Điểm Khen thưởng/ Xử phạt</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in kt_xp %}
+                <tr>
+                    <td>{{ i.time }}</td>
+                    <td>{{ i.ten_kt_xp }}</td>
+                    <td>{{ i.diem_kt_xp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+    {% if not kt_xp %}
+    <h2>Bạn không có khen thưởng, xử phạt nào trong trong thời gian này</h2>
+    {% endif %}
+    <button onclick="location.href='/drl'">See total DRL</button>
+    <button onclick="location.href='/home'">HOME</button></main>
+{% endblock %}

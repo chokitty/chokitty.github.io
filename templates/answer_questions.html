@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Answer Questions</h1>
+</header>
+<main>
+    <form action="/answer_questions" method="post">
+        {% if questions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Question</th>
+                    <th>Answered By ID</th>
+                    <th>Mark as Answered</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %}
+                <tr>
+                    <td>{{ question.id }}</td>
+                    <td>{{ question.hovaten }}</td>
+                    <td>{{ question.email }}</td>
+                    <td>{{ question.question }}</td>
+                    <td>
+                        <input type="text" name="answered_to_{{ question.question_id }}" pattern="\d{9}" title="Please enter MSSV">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="answered_{{ question.question_id }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+  
+        <button type="submit">Submit</button>
+        {% endif %}
+    </form>
+    {% if answer_message %}
+    <p>{{ answer_message }}</p>
+    {% endif %}
+    <button onclick="location.href='/home'">HOME</button></main>
+</main>
+{% endblock %}

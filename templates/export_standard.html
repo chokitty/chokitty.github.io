@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Export Student Information</h1>
+</header>
+<main>
+    <section>
+        <h2>Standard Exported File</h2>
+        <form action="/export_standard" onsubmit="return validateNienkhoa()" method="POST">
+            <label for="from_day">From day:</label>
+            <input type="date" id="from_day" name="from_day" required>
+            <label for="to_day">To day:</label>
+            <input type="date" id="to_day" name="to_day" required>
+            <br>
+            <label for="school_years">School Years:</label>
+            <input type="text" id="school_years" name="school_years" oninput="validateNienkhoa()" required>
+            <span id="nienkhoaError" style="color:red; display:none;">Vui lòng kiểm tra lại số niên khóa. Ví dụ: 2017-2022.</span>           
+            <button type="submit">Export as PDF</button>
+        </form>
+    </section>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    <button onclick="location.href='/home'">HOME</button></main>
+</main>
+<script>
+    function validateNienkhoa() {
+        const nienkhoaPattern = /^\d{4}-\d{4}$/;
+        const nienkhoa = document.getElementById("school_years").value;
+        const errorSpan = document.getElementById("nienkhoaError");
+
+        if (!nienkhoaPattern.test(nienkhoa))
+        {
+            errorSpan.style.display = 'inline';
+            return false;
+        }
+        else
+        {   
+            errorSpan.style.display = 'none';
+            return true;
+        }
+    }
+</script>
+{% endblock %}

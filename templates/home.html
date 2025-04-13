@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<header>
+    <h1>Welcome, {{ user_info[0].hovaten }}</h1>
+</header>
+<main>
+    {% if access_level == "DH" %}
+    {% if unanswered_questions %}
+    <section>
+        <h2>Notifications</h2>
+        <p>You have unanswered questions that need your response.</p>
+    </section>
+    {% endif %}
+    {% endif %}
+    <section>
+        <h2>Student Information</h2>
+        <p>ID: {{ user_info[0].id }}</p>
+        <p>Name: {{ user_info[0].hovaten }}</p>
+        <p>Date of Birth: {{ user_info[0].birth }}</p>
+        <p>School Years: {{ user_info[0].nienkhoa }}</p>
+    </section>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    <section>
+        <h2>Links</h2>
+        <ul>
+            <li><a href="/change_password">Change Password</a></li>
+            <li><a href="/temp_activities">See Social Activities</a></li>
+            <li><a href="/temp_kt_xp">Xem khen thưởng, xử phạt</a></li>
+            <li><a href="/temp_drl">See Activity Points</a></li>
+            <li><a href="/questions">File Questions and Problems</a></li>
+            {% if access_level == "DH" %}
+            <li><a href="/submit_activity">Submit Activity</a></li>
+            <li><a href="/submit_education">Nhập khen thưởng, phạt</a></li>
+            <li><a href="/submit_students">Nhập danh sách sinh viên mới</a></li>
+            <li><a href="/submit_participants">Nhập thêm danh sách tham gia</a></li>
+            <li><a href="/search_selection">Tìm kiếm thông tin</a></li>
+            <li><a href="/export_database">Truy xuất một số danh sách</a></li>
+            <li><a href="/answer_questions">Giải đáp thắc mắc</a></li>
+            <li><a href="/export_file">Truy xuat File theo lop</a></li>
+            {% endif %}
+            {% if access_level == "IT" %}
+            <li><a href="/reset_password">Reset passsword</a></li>
+            <li><a href="/apply_access">Apply Access</a></li>
+            <li><a href="/reset_access">Reset Access</a></li>
+            {% endif %}
+        </ul>
+    </section>
+    <button onclick="location.href='/'">LOGOUT</button></main>
+</main>
+<script>
+    window.onpopstate = function(event) {
+        window.location.href = "/";
+    };
+    history.pushState(null, null, location.href);
+</script>
+{% endblock %}

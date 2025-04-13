@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Nhập thông tin khen thưởng, xử phạt</h1>
+</header>
+<main>
+    <form id="educationForm" action="/submit_education" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Upload File khen thuong, xu phat</legend>
+          <p>File Excel gồm 4 cột thông tin: id, tên khen thưởng/xử phạt, điểm khen thưởng/xử phạt, time</p>
+          <label for="file">Choose File:</label>
+          <input type="file" id="edu_file" name="edu_file" accept=".xlsx" required>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>
+    {% if submitedu_message %}
+    <p>{{ submitedu_message }}</p>
+    {% endif %}
+    {% if false_submit %}
+    <p>{{ false_submit }}</p>
+    {% endif %}
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    <button onclick="location.href='/home'">HOME</button></main>
+</main> 
+{% endblock %}

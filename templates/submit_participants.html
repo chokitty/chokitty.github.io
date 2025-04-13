@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Nhập thêm danh sách sinh viên tham gia</h1>
+</header>
+<main>
+    <form id="participantForm" action="/submit_participants" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Activity ID</legend>
+          <label for="activity_id">Activity ID:</label>
+          <input type="text" id="activity_id" name="activity_id" required>
+          <br>
+          <p>File Excel gồm 2 cột thông tin student_id, code_hd</p>
+          <label for="file">Choose File:</label>
+          <input type="file" id="participants_file" name="participants_file" accept=".xlsx" required>
+        </fieldset>
+        <button type="submit">Submit</button>
+      </form>
+    {% if submitpar_message %}
+    <p>{{ submitpar_message }}</p>
+    {% endif %}
+    {% if false_submit %}
+    <p>{{ false_submit }}</p>
+    {% endif %}
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    <button onclick="location.href='/home'">HOME</button></main>
+</main> 
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin điểm rèn luyện từ {{ from_day }} đến {{ to_day }} của Khóa Dược {{ nienkhoa }}</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thông tin điểm rèn luyện từ {{ from_day }} đến {{ to_day }} của Khóa Dược {{ nienkhoa }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Birth</th>
+                <th>Points</th>
+                <th>School Years</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.hovaten }}</td>
+                <td>{{ student.birth }}</td>
+                <td>{{ student.total_points }}</td>
+                <td>{{ student.nienkhoa }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

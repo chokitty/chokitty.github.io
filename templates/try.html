@@ -1,0 +1,21 @@
+@app.route('/export_selection', methods=['POST'])
+def export_selection():
+    fields = request.form.getlist('fields[]')
+    query = "SELECT " + ", ".join(fields) + " FROM students WHERE 1=1"
+    
+    for field in fields:
+        value = request.form.get(field)
+        if value:
+            query += f" AND {field} LIKE '%{value}%'"
+    
+    students = db.execute(query)
+    
+    rendered = render_template('export_template.html', students=students)
+    pdf = pdfkit.from_string(rendered, False)
+    response = send_file(
+        pdf,
+        as_attachment=True,
+        attachment_filename='students.pdf',
+        mimetype='application/pdf'
+    )
+    return response

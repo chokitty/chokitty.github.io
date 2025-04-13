@@ -1,0 +1,140 @@
+/* style.css */
+
+.logo-container {
+    position: absolute; /* Để định vị logo so với viewport hoặc phần tử cha gần nhất có position: relative */
+    top: 10px; /* Khoảng cách từ đỉnh trang */
+    left: 10px; /* Khoảng cách từ bên trái trang */
+    z-index: 1000; /* Đảm bảo logo nằm trên các phần tử khác */
+}
+
+.logo-container img {
+    height: 100px; /* Điều chỉnh chiều cao logo theo ý muốn */
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    color: #000; /* Màu chữ mặc định, chúng ta có thể thay đổi nếu cần */
+    padding-left: 20px;
+    position: relative;
+    background-image: /*linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),*/ url('/static/images/background.png'); /* Thêm lớp phủ trắng bán trong suốt */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+header {
+    background-color: rgba(230, 247, 230, 0.8); /* Xanh lá nhạt với độ trong suốt */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #8fbc8f;
+}
+
+header h1 {
+    color: #2e8b57; /* Xanh lá cây đậm */
+    margin-bottom: 0;
+}
+
+main {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Thêm nền trắng bán trong suốt cho main */
+    padding: 20px; /* Thêm padding để chữ không bị sát viền */
+    border-radius: 5px; /* Bo tròn góc nếu muốn */
+}
+
+.login {
+    display: flex; /* Để căn giữa nút Login */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #38761d; /* Xanh ô liu đậm */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+section p {
+    margin-bottom: 10px;
+}
+
+section ul {
+    list-style: none;
+    padding: 0;
+}
+
+section li {
+    margin-bottom: 8px;
+}
+
+section li a {
+    color: #008000; /* Xanh lá cây tươi */
+    text-decoration: none;
+}
+
+section li a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #4CAF50; /* Xanh lá cây sáng */
+    color: white;
+    padding: 8px 12px; /* Giảm padding (trên/dưới và trái/phải) */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; /* Giảm kích thước chữ */
+}
+
+button:hover {
+    background-color: #367c39; /* Xanh lá cây đậm hơn khi hover */
+}
+
+.notifications {
+    background-color: #f0fff0; /* Xanh lơ nhạt */
+    border: 1px solid #a9d18e;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.notifications h2 {
+    color: #2e8b57;
+}
+
+/* CSS cơ bản cho bảng */
+table {
+    width: 100%; /* Chiều rộng bảng chiếm toàn bộ container */
+    border-collapse: collapse; /* Gộp đường viền các ô lại */
+    margin-bottom: 20px; /* Khoảng cách dưới bảng */
+    border: 1px solid #ccc; /* Đường viền ngoài của bảng */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Đường viền giữa các ô */
+    padding: 8px; /* Khoảng cách bên trong ô */
+    text-align: left; /* Căn chữ trong ô sang trái */
+}
+
+th {
+    background-color: #f2f2f2; /* Màu nền cho tiêu đề bảng */
+    font-weight: bold; /* Chữ in đậm cho tiêu đề */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu nền khác cho các hàng chẵn để dễ đọc */
+}
+
+/* Hiệu ứng hover (khi di chuột qua hàng) */
+tr:hover {
+    background-color: #e0e0e0;
+}

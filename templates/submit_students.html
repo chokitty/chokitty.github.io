@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Nhập thông tin sinh viên mới</h1>
+</header>
+<main>
+    <form id="studentsForm" action="/submit_students" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Upload danh sách sinh viên mới</legend>
+          <p>File Excel gồm 6 cột thông tin: id, Họ và tên, Ngày tháng năm sinh, Niên khóa, Phân quyền, Email</p>
+          <label for="file">Choose File:</label>
+          <input type="file" id="students_file" name="students_file" accept=".xlsx" required>
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
+    {% if submitstu_message %}
+    <p>{{ submitstu_message }}</p>
+    {% endif %}
+    {% if false_submit %}
+    <p>{{ false_submit }}</p>
+    {% endif %}
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    <button onclick="location.href='/home'">HOME</button></main>
+</main> 
+{% endblock %}

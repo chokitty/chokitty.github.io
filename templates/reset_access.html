@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Rút sinh viên khỏi access DH</h1>
+</header>
+<main>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+    <form id="reset_access" action="/reset_access" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Upload danh sách sinh viên cần rút khỏi access DH</legend>
+          <p>File Excel gồm 1 cột thông tin: ID</p>
+          <label for="file">Choose File:</label>
+          <input type="file" id="reset_access" name="reset_access" accept=".xlsx" required>
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
+    <section>
+        <h2>Danh sách sinh viên có access DH</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Họ và tên</th>
+                    <th>Phân quyền</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in DH_list %}
+                <tr>
+                    <td>{{ i["student_id"] }}</td>
+                    <td>{{ i.hovaten }}</td>
+                    <td>{{ i.phanquyen }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <button onclick="location.href='/home'">HOME</button></main>
+</main> 
+{% endblock %}

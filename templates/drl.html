@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Total Points from {{ from_day_tmp }} to {{ to_day_tmp }}</h1>
+</header>
+<main>
+    <section>
+        <h2>Your Total Points</h2>
+        <p>Total Points: {{ total_points }}</p>
+        <p>Trong đó:</p>
+        <ul>
+            <li>Điểm cơ bản: 45</li>
+            {% for i in pfes %}
+            <li>Điểm phần {{ i["subject"] }} là {{ i["points"] }}</li>
+            {% endfor %}
+            {% if optional_points %}
+            <li>Tổng điểm khen thưởng, xử phạt là {{ optional_points[0]["optional_points"] }}</li>
+            {% endif %}
+        </ul>
+        {% if explanations %}
+        <h3>Explanations</h3>
+        <ul>
+            {% for explanation in explanations %}
+            <li>{{ explanation }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if b %}
+        <h3>Your Activities</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Level</th>
+                    <th>Subject</th>
+                    <th>DRL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for j in b %}
+                <tr>
+                    <td>{{ j.name }}</td>
+                    <td>{{ j.time }}</td>
+                    <td>{{ j.level }}</td>
+                    <td>{{ j.subject }}</td>
+                    <td>{{ j.drl }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if kt_xp %}
+        <h3>Khen thưởng, xử phạt</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Tên khen thưởng, xử phạt</th>
+                    <th>Điểm khen thưởng, xử phạt</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for k in kt_xp %}
+                <tr>
+                    <td>{{ k.time }}</td>
+                    <td>{{ k.ten_kt_xp }}</td>
+                    <td>{{ k.diem_kt_xp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </section>
+    <button onclick="location.href='/activities'">Xem danh sách hoạt động</button></main>
+    <button onclick="location.href='/home'">HOME</button></main>
+</main>
+{% endblock %}

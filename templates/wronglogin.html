@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Invalid Login</h1>
+</header>
+<main>
+    <p>Your student ID or password is incorrect. Please try again or contact IT for assistance.</p>
+    <button onclick="location.href='/login'">Try Again</button>
+    <button onclick="location.href='/contact_it'">Contact IT</button>
+</main>
+{% endblock %}

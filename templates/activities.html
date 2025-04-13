@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Hoạt động từ ngày {{ from_day_tmp }} đến ngày {{ to_day_tmp }}</h1>
+</header>
+<main>
+    <section>
+        <h2>Những hoạt động bạn đã tham gia</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Time</th>
+                    <th>Level</th>
+                    <th>Subject</th>
+                    <th>DRL</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activity in activities %}
+                <tr>
+                    <td>{{ activity.name }}</td>
+                    <td>{{ activity.time }}</td>
+                    <td>{{ activity.level }}</td>
+                    <td>{{ activity.subject }}</td>
+                    <td>{{ activity.drl }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <button onclick="location.href='/drl'">See total DRL</button>
+    <button onclick="location.href='/home'">HOME</button></main>
+</main>
+{% endblock %}

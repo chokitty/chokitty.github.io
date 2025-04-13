@@ -1,0 +1,195 @@
+{% extends "layout.html" %}
+{% block body %}
+<header>
+    <h1>Submit Activity</h1>
+</header>
+<main>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    <form id="activityForm" onsubmit="return showReviewBoard()" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Activity Information</legend>
+            <label for="activity_id">Activity ID:</label>
+            <input type="text" id="activity_id" name="activity_id" required>
+            <br>
+            <label for="activity_name">Activity Name:</label>
+            <input type="text" id="activity_name" name="activity_name" required>
+            <br>
+            <label for="activity_level">Activity Level:</label>
+            <input type="text" id="activity_level" name="activity_level" required oninput="validateActivityLevel()">
+            <span id="activityLevelError" style="color:red; display:none;">Please enter the Activity Level in the format "YDS" or "K...".</span>           
+            <br>
+            <label for="activity_subject">Activity Subject:</label>
+            <input type="text" id="activity_subject" name="activity_subject" required oninput="validateActivitySubject()">
+            <span id="activitySubjectError" style="color:red; display:none;">Nhập lĩnh vực không dấu, không khoảng trống, ví dụ: thethao</span>           
+            <br>
+            <label for="activity_time">Activity Time (dd/mm/yyyy):</label>
+            <input type="text" id="activity_time" name="activity_time" required oninput="validateActivityTime()">
+            <span id="activityTimeError" style="color:red; display:none;">Please enter the Activity Time in the format dd/mm/yyyy.</span>
+        </fieldset>
+        <fieldset>
+            <legend>Participant Information</legend>
+            <div id="participant-info">
+                <div class="participant">
+                    <label for="holder_points">Holder Points:</label>
+                    <input type="text" id="holder_points" name="holder_points">
+                    <br>
+                    <label for="holder_code">Holder Code:</label>
+                    <input type="text" id="holder_code" name="holder_code">
+                    <br>
+                </div>
+                <div class="participant">
+                    <label for="joiner_points">Joiner Points:</label>
+                    <input type="text" id="joiner_points" name="joiner_points">
+                    <br>
+                    <label for="joiner_code">Joiner Code:</label>
+                    <input type="text" id="joiner_code" name="joiner_code">
+                    <br>
+                </div>
+                <div class="participant">
+                    <label for="watcher_points">Watcher Points:</label>
+                    <input type="text" id="watcher_points" name="watcher_points">
+                    <br>
+                    <label for="watcher_code">Watcher Code:</label>
+                    <input type="text" id="watcher_code" name="watcher_code">
+                    <br>
+                </div>
+            </div>
+            <button type="button" onclick="addParticipant()">Add Participant</button>
+        </fieldset>
+        <fieldset>
+            <legend>Upload .xlsx File</legend>
+            <p>File Excel gồm 7 cột thông tin: id, Họ và tên, Ngày tháng năm sinh, Niên khóa, Password, Phân quyền, Email</p>
+            <label for="file">Choose File:</label>
+            <input type="file" id="file" name="file" accept=".xlsx" required>
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
+    {% if submit_message %}
+    <p>{{ submit_message }}</p>
+    {% endif %}  
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}  
+    {% if false_message %}
+    <p>{{ false_message }}</p>
+    {% endif %}  
+    <button onclick="location.href='/home'">HOME</button></main>
+</main>
+
+<div id="reviewBoard" style="display:none;">
+    <h2>Review Your Activity Information</h2>
+    <table id="reviewTable" border="1">
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Thông tin đã nhập</th>
+        </tr>
+      </thead>
+      <tbody id="reviewContent"></tbody>
+    </table>
+    <button onclick="submitForm()">Submit</button>
+    <button onclick="editForm()">Back</button>
+</div>
+
+<script>
+    function addParticipant() {
+        const participantInfo = document.getElementById('participant-info');
+        const newParticipant = document.createElement('div');
+        newParticipant.classList.add('participant');
+        newParticipant.innerHTML = `
+            <label for="role">Role:</label>
+            <input type="text" name="role[]">
+            <br>
+            <label for="points">Points:</label>
+            <input type="text" name="points[]">
+            <br>
+            <label for="code">Code:</label>
+            <input type="text" name="code[]">
+            <br>
+        `;
+        participantInfo.appendChild(newParticipant);
+    }
+
+    function validateActivityLevel() {
+        // Regular expression to match "YDS" or "K" followed by any characters
+        const levelPattern = /^(YDS|K.*)$/;
+        const activityLevel = document.getElementById('activity_level').value;
+        const errorSpan = document.getElementById('activityLevelError');
+
+        if (!levelPattern.test(activityLevel))
+        {
+            errorSpan.style.display = 'inline';
+        }
+        else
+        {   
+            errorSpan.style.display = 'none';
+        }
+    }
+    function validateActivitySubject() {
+        let subjects = ['thethao', 'vanhoa', 'nghethuat', 'tinhnguyen', 'hocthuat'];
+        const activitySubject = document.getElementById('activity_subject').value;
+        const errorSpan = document.getElementById('activitySubjectError');
+        if (subjects.includes(activitySubject)) {
+            errorSpan.style.display = 'none';
+        } else {
+            errorSpan.style.display = 'inline';
+        }
+    }
+
+    function validateActivityTime() {
+        const activityTime = document.getElementById('activity_time').value;
+        const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const errorSpan = document.getElementById('activityTimeError');
+
+        if (!datePattern.test(activityTime))
+        {
+            errorSpan.style.display = 'inline';
+        }
+        else
+        {   
+            errorSpan.style.display = 'none';
+        }
+    }
+
+    function showReviewBoard() {
+        const form = document.getElementById('activityForm');
+        const reviewContent = document.getElementById('reviewContent');
+        reviewContent.innerHTML = '';
+
+        // Capture form data
+        const formData = new FormData(form);
+        formData.forEach((value, key) => {
+            const row = document.createElement('tr');
+            const fieldCell = document.createElement('td');
+            const valueCell = document.createElement('td');
+            fieldCell.textContent = key;
+            valueCell.textContent = value;
+            row.appendChild(fieldCell);
+            row.appendChild(valueCell);
+            reviewContent.appendChild(row);
+        });
+
+    // Show review board and hide form
+        document.getElementById('reviewBoard').style.display = 'block';
+        form.style.display = 'none';
+        return false; // Prevent form submission
+    }
+
+    function submitForm() {
+        document.getElementById('activityForm').submit();
+    }
+
+    function editForm() {
+        document.getElementById('reviewBoard').style.display = 'none';
+        document.getElementById('activityForm').style.display = 'block';
+    }
+</script>
+{% endblock %}

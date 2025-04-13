@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <title>Login</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        document.addEventListener("DOMcontentLoaded", function() {
+            document.getElementById('student_id').value = '';
+            document.getElementById('password').value = '';
+        });
+
+        function checkCapsLock(event) {
+            var capsLockWarning = document.getElementById('caps-lock-warning');
+            if (event.getModifierState('CapsLock')) {
+                capsLockWarning.style.display = 'block';
+            } else {
+                capsLockWarning.style.display = 'none';
+            }
+        }
+    </script>
+    <style>
+        #caps-lock-warning {
+            display: none;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo của trang web">
+    </div>
+    <header>
+        <h1>Login</h1>
+    </header>
+    <main>
+        <form action="/login" method="post"> 
+            <label for="student_id">Student ID:</label>
+            <input autofocus placeholder="STUDENT_ID" type="text" id="student_id" name="student_id" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" onkeyup="checkCapsLock(event)" required>
+            <button type="button" onclick="togglePasswordVisibility('password')">👁️</button>
+            <br>
+            <span id="caps-lock-warning">Caps Lock is on!</span>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+    </main>
+    <script>
+        function togglePasswordVisibility(fieldId) {
+            var field = document.getElementById(fieldId);
+            if (field.type === "password") {
+                field.type = "text";
+            } else {
+                field.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>
