@@ -18,10 +18,12 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 db = SQL("sqlite:///students.db")
 subjects = ['thethao', 'vanhoa', 'nghethuat', 'tinhnguyen', 'hocthuat']
-
+redis_host = os.environ.get('REDIS_HOST')
+redis_port = os.environ.get('REDIS_PORT', 6379) # Mặc định là 6379 nếu không có biến môi trường
+redis_password = os.environ.get('REDIS_PASSWORD')
 app.config["SESSION PERMANENT"] = False
 app.config["SESSION_TYPE"] = "redis"
-app.config["SESSION_REDIS"] = redis.StrictRedis(host='localhost', port=6379, db=0)
+app.config["SESSION_REDIS"] = redis.Redis(host=redis_host, port=int(redis_port), db=0, password=redis_password)
 Session(app)
 
 
